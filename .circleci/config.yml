@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/cci-film-ratings # directory where steps will run
+    docker:
+      - image: circleci/clojure:lein-2.8.1
+    environment:
+      LEIN_ROOT: nbd
+      JVM_OPTS: -Xmx3200m # limit the maximum heap size to prevent out of memory errors
+    steps:
+      - checkout
+      - restore_cache:
+          key: film-ratings-{{ checksum "project.clj" }}
+      - run: lein deps
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: film-ratings-{{ checksum "project.clj" }}
+      - run: lein do test, uberjar
