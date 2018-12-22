@@ -1,0 +1,5 @@
+{:duct.core/environment :development
+ :duct.core/include ["film_ratings/config"]
+
+ :duct.module/sql
+ {:database-url "jdbc:sqlite:db/dev.sqlite"}}

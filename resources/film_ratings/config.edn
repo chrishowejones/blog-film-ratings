@@ -1,0 +1,12 @@
+{:duct.core/project-ns  film-ratings
+ :duct.core/environment :production
+
+ :duct.module/logging {}
+ :duct.module.web/site {}
+ :duct.module/sql {}
+
+ :duct.module/ataraxy
+ {[:get "/example"] [:example]}
+
+ :film-ratings.handler/example
+ {:db #ig/ref :duct.database/sql}}
