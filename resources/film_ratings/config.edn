@@ -6,7 +6,7 @@
  :duct.module/sql {}
 
  :duct.module/ataraxy
- {[:get "/example"] [:example]}
+ {[:get "/"] [:index]}
 
- :film-ratings.handler/example
- {:db #ig/ref :duct.database/sql}}
+ :film-ratings.handler/index
+ {}}
