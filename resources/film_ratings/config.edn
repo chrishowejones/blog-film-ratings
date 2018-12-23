@@ -6,7 +6,21 @@
  :duct.module/sql {}
 
  :duct.module/ataraxy
- {[:get "/"] [:index]}
+ {[:get "/"] [:index]
+  "/add-film"
+  {:get [:film/show-create]
+   [:post {film-form :form-params}] [:film/create film-form]}}
 
- :film-ratings.handler/index
- {}}
+ :film-ratings.handler/index {}
+ :film-ratings.handler.film/show-create {}
+ :film-ratings.handler.film/create {:db #ig/ref :duct.database/sql}
+
+ :duct.migrator/ragtime
+ {:migrations [#ig/ref :film-ratings.migrations/create-film]}
+
+ [:duct.migrator.ragtime/sql :film-ratings.migrations/create-film]
+ {:up ["CREATE TABLE film (id INTEGER PRIMARY KEY, name TEXT UNIQUE, description TEXT, rating INTEGER)"]
+  :down ["DROP TABLE film"]}
+
+
+ }
