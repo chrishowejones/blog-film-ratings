@@ -69,4 +69,4 @@ lein test
 
 ## Legal
 
-Copyright © 2018 FIXME
+Copyright © 2018 Chris Howe-Jones
