@@ -1,6 +1,8 @@
 # film-ratings
 
-FIXME: description
+This is an example Clojure web application written using the Duct
+framework. This code is referenced by my blog on 'Building a Clojure
+web application using Duct'.
 
 ## Developing
 

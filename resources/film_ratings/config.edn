@@ -9,11 +9,13 @@
  {[:get "/"] [:index]
   "/add-film"
   {:get [:film/show-create]
-   [:post {film-form :form-params}] [:film/create film-form]}}
+   [:post {film-form :form-params}] [:film/create film-form]}
+  [:get "/list-films"] [:film/list]}
 
  :film-ratings.handler/index {}
  :film-ratings.handler.film/show-create {}
  :film-ratings.handler.film/create {:db #ig/ref :duct.database/sql}
+ :film-ratings.handler.film/list {:db #ig/ref :duct.database/sql}
 
  :duct.migrator/ragtime
  {:migrations [#ig/ref :film-ratings.migrations/create-film]}
