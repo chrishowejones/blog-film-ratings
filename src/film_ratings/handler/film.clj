@@ -9,11 +9,18 @@
   (fn [_]
     [::response/ok (views.film/create-film-view)]))
 
+(defn- film-form->film
+  [film-form]
+  (as-> film-form film
+    (dissoc film "__anti-forgery-token")
+    (reduce-kv (fn [m k v] (assoc m (keyword k) v))
+               {}
+               film)
+    (update film :rating #(Integer/parseInt %))))
+
 (defmethod ig/init-key :film-ratings.handler.film/create [_ {:keys [db]}]
   (fn [{[_ film-form] :ataraxy/result :as request}]
-    (let [film (reduce-kv (fn [m k v] (assoc m (keyword k) v))
-                          {}
-                          (dissoc film-form "__anti-forgery-token"))
+    (let [film (film-form->film film-form)
           result (boundary.film/create-film db film)
           alerts (if (:id result)
                    {:messages ["Film added"]}

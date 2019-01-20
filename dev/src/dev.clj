@@ -24,4 +24,9 @@
 (when (io/resource "local.clj")
   (load "local"))
 
-(integrant.repl/set-prep! (comp duct/prep read-config))
+(defn remove-prod-database-attributes
+  "The prepared config is a merge of dev and prod config and the prod attributes for everything except :jdbc-url need to be dropped or the sqlite db is configured with postgres attributes"
+  [config]
+  (update config :duct.database.sql/hikaricp (fn [db-config] (->> (find db-config :jdbc-url) (apply hash-map)))))
+
+(integrant.repl/set-prep! (comp remove-prod-database-attributes duct/prep read-config))

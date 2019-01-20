@@ -4,6 +4,12 @@
  :duct.module/logging {}
  :duct.module.web/site {}
  :duct.module/sql {}
+ :duct.database.sql/hikaricp {:adapter "postgresql"
+                              :port-number #duct/env [ "DB_PORT" :or "5432" ]
+                              :server-name #duct/env [ "DB_HOST" ]
+                              :database-name "filmdb"
+                              :username "filmuser"
+                              :password #duct/env [ "DB_PASSWORD" ]}
 
  :duct.module/ataraxy
  {[:get "/"] [:index]
@@ -21,7 +27,7 @@
  {:migrations [#ig/ref :film-ratings.migrations/create-film]}
 
  [:duct.migrator.ragtime/sql :film-ratings.migrations/create-film]
- {:up ["CREATE TABLE film (id INTEGER PRIMARY KEY, name TEXT UNIQUE, description TEXT, rating INTEGER)"]
+ {:up ["CREATE TABLE film (id SERIAL PRIMARY KEY, name TEXT UNIQUE, description TEXT, rating INTEGER)"]
   :down ["DROP TABLE film"]}
 
 
