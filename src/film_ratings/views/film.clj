@@ -69,3 +69,18 @@
       (for [message (doall messages)]
        [:div.row.alert.alert-success
         [:div.col message]]))]))
+
+(defn search-film-by-name-view
+  []
+  (page
+   [:div.container.jumbotron.bg-light
+    [:div.row
+     [:h2 "Search for film by name"]]
+    [:div
+     (form-to [:post "/find-by-name"]
+              (anti-forgery-field)
+              [:div.form-group.col-12
+               (label :name "Name:")
+               (text-field {:class "mb-3 form-control" :placeholder "Enter film name"} :name)]
+              [:div.form-group.col-12.text-center
+               (submit-button {:class "btn btn-primary text-center"} "Search")])]]))
