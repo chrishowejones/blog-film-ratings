@@ -63,6 +63,31 @@ jobs:
             echo "${DOCKERHUB_PASS}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
             docker push $IMAGE_NAME:latest
             docker push $IMAGE_NAME:${CIRCLE_TAG}
+  deploy:
+    docker:
+      - image: circleci/python:3.6.1
+    environment:
+      AWS_DEFAULT_OUTPUT: json
+      IMAGE_NAME: chrishowejones/film-ratings-app
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "requirements.txt" }}
+      - run:
+          name: Install the AWS CLI
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - save_cache:
+          key: v1-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
+      - run:
+          name: Deploy
+          command: |
+            . venv/bin/activate
+            ./deploy.sh
 workflows:
   version: 2.1
   main:
@@ -87,6 +112,23 @@ workflows:
       - publish-docker:
           requires:
             - build-docker
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - hold:
+          requires:
+            - publish-docker
+          type: approval
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - deploy:
+          requires:
+            - hold
           filters:
             branches:
               ignore: /.*/
