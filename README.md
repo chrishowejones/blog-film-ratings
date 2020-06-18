@@ -3,8 +3,8 @@
 [![CircleCI](https://circleci.com/gh/chrishowejones/blog-film-ratings.svg?style=svg)](https://circleci.com/gh/chrishowejones/blog-film-ratings)
 
 This is an example Clojure web application written using the Duct
-framework. This code is referenced by my blog on 'Building a Clojure
-web application using Duct'.
+framework. This code is referenced by my blog on [Building a Clojure
+web application using Duct](https://circleci.com/blog/build-a-clojure-web-app-using-duct/).
 
 ## Developing
 
