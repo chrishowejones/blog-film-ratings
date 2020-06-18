@@ -11,6 +11,7 @@
                  [org.xerial/sqlite-jdbc "3.21.0.1"]
                  [org.postgresql/postgresql "42.1.4"]
                  [duct/database.sql.hikaricp "0.3.3"]
+                 [org.clojure/core.rrb-vector "0.0.13"] ;; required for JDK11+
                  [hiccup "1.0.5"]]
   :plugins [[duct/lein-duct "0.10.6"]]
   :main ^:skip-aot film-ratings.main
