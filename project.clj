@@ -9,6 +9,7 @@
                  [duct/module.ataraxy "0.2.0"]
                  [duct/module.sql "0.4.2"]
                  [org.xerial/sqlite-jdbc "3.21.0.1"]
+                 [org.clojure/core.rrb-vector "0.0.13"] ;; required for JDK11+
                  [hiccup "1.0.5"]]
   :plugins [[duct/lein-duct "0.10.6"]]
   :main ^:skip-aot film-ratings.main
