@@ -10,7 +10,7 @@ web application using Duct](https://circleci.com/blog/build-a-clojure-web-app-us
 
 ### Setup
 
-When you first clone this repository, run:
+When you first clone this repository, cd into the cloned directory and run:
 
 ```sh
 lein duct setup
@@ -18,6 +18,13 @@ lein duct setup
 
 This will create files for local configuration, and prep your system
 for the project.
+
+Note: You will need to create an empty db/ directory under the project
+directory.
+
+``` sh
+mkdir db
+```
 
 ### Environment
 
